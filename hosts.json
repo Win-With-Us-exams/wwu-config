@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "hosts": [
+    "https://win-with-us-api.onrender.com"
+  ]
+}
