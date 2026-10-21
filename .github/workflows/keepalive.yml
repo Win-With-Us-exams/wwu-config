@@ -1,0 +1,17 @@
+name: Keep server awake
+on:
+  schedule:
+    - cron: "*/14 1-16 * * *"   # every 14 min, ~6:30 AM-10:30 PM IST
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Ping
+        run: |
+          for i in 1 2 3; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 60 https://win-with-us-api.onrender.com/ping) && [ "$code" = "200" ] && { echo "ok"; exit 0; }
+            echo "try $i got $code"; sleep 10
+          done
+          exit 1
